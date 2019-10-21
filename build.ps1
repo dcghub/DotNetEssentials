@@ -29,7 +29,7 @@ if ($lastexitcode -ne 0) { exit $lastexitcode; }
 
 # Create the stable NuGet package
 echo "Creating package"
-& $msbuild "./Xamarin.Essentials/Xamarin.Essentials.csproj" /t:Pack /p:Configuration=Release /p:ContinuousIntegrationBuild=$cibuild /p:Deterministic=false /p:PackageVersion=$tag /p:VersionSuffix="-date$date.git-$hash"
+& $msbuild "./Xamarin.Essentials/Xamarin.Essentials.csproj" /t:Pack /p:Configuration=Release /p:ContinuousIntegrationBuild=$cibuild /p:Deterministic=false /p:PackageVersion="$tag-date$date.git-$hash"
 if ($lastexitcode -ne 0) { exit $lastexitcode; }
 
 # Create the beta NuGet package
