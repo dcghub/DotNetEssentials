@@ -9,6 +9,7 @@ if (!$env:BUILD_NUMBER) {
 
 $date = get-date -format "yyyyMMdd-HHmm"
 $hash = & git rev-parse --short HEAD
+$tag = & git describe --tags --abbrev=0
 
 # Find MSBuild on this machine
 if ($IsMacOS) {
@@ -28,7 +29,7 @@ if ($lastexitcode -ne 0) { exit $lastexitcode; }
 
 # Create the stable NuGet package
 echo "Creating package"
-& $msbuild "./Xamarin.Essentials/Xamarin.Essentials.csproj" /t:Pack /p:Configuration=Release /p:ContinuousIntegrationBuild=$cibuild /p:Deterministic=false /p:VersionSuffix="-date$date.git-$hash"
+& $msbuild "./Xamarin.Essentials/Xamarin.Essentials.csproj" /t:Pack /p:Configuration=Release /p:ContinuousIntegrationBuild=$cibuild /p:Deterministic=false /p:PackageVersion=$tag /p:VersionSuffix="-date$date.git-$hash"
 if ($lastexitcode -ne 0) { exit $lastexitcode; }
 
 # Create the beta NuGet package
