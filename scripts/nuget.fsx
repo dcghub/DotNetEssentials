@@ -15,7 +15,7 @@ open System.Linq
 
 let MaybeUpload (packageName: string) =
     let outputDir = Path.Combine(Directory.GetCurrentDirectory(), "Output") |> DirectoryInfo
-    let nupkgFile = outputDir.EnumerateFiles().Single(fun file -> file.FullName.StartsWith packageName && file.FullName.EndsWith ".nupkg")
+    let nupkgFile = outputDir.EnumerateFiles().Single(fun file -> file.Name.StartsWith packageName && file.FullName.EndsWith ".nupkg")
     let argsPassedToThisScript = Misc.FsxArguments()
     if argsPassedToThisScript.Length <> 1 then
         Console.WriteLine "NUGET_API_KEY not passed to script, skipping upload..."
